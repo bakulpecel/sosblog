@@ -1,0 +1,35 @@
+{% extends 'templates/admin.twig' %}
+
+{% block title %}All List Publish Post - {% endblock %}
+
+{% block pageheader %}All List Publish Post{% endblock %}
+
+{% block content %}
+    <div class="box box-primary">
+        <div class="box-body">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th style="width: 40px">Edit</th>
+                    <th style="width: 40px">Delete</th>
+                </tr>
+                {% for article in article %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td><a href="/post/{{ article.id }}/edit"><i class="fa fa-pencil"></i></a></td>
+                        <td><a href="/post/{{ article.id }}/delete"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>    
+{% endblock %}
