@@ -25,6 +25,15 @@ $container['view'] = function ($c) {
         $c->get('request')->getUri())
     );
     $view->addExtension(new Twig_Extension_Debug());
+    if (isset($_SESSION['old'])) {
+        $view->getEnvironment()->addGlobal('old', $_SESSION['old']);
+        unset($_SESSION['old']);
+    }
+    
+    if (isset($_SESSION['errors'])) {
+        $view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
+        unset($_SESSION['errors']);
+    }
 
     return $view;
 };

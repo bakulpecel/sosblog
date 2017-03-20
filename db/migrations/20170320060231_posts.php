@@ -31,7 +31,7 @@ class Posts extends AbstractMigration
         $table->addColumn('title', 'string')
               ->addColumn('content', 'text')
               ->addColumn('user_id', 'integer')
-              ->addColumn('deleted', 'integer')
+              ->addColumn('deleted', 'integer', ['default' => 0])
               ->addTimestamps()
               ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
               ->addIndex(['title'], ['unique' => true])
