@@ -12,6 +12,11 @@ $container['db'] = function ($c) use ($capsule) {
     return $capsule;
 };
 
+// Auth
+$container['auth'] = function ($c) {
+    return new App\Auth\Auth;
+};
+
 // Twig View
 $container['view'] = function ($c) {
     $settings = $c->get('settings');
@@ -25,11 +30,16 @@ $container['view'] = function ($c) {
         $c->get('request')->getUri())
     );
     $view->addExtension(new Twig_Extension_Debug());
+    if (isset($_SESSION['login'])) {
+        $view->getEnvironment()->addGlobal('login', $_SESSION['login']);
+        // unset($_SESSION['login']);
+    }
+
     if (isset($_SESSION['old'])) {
         $view->getEnvironment()->addGlobal('old', $_SESSION['old']);
         unset($_SESSION['old']);
     }
-    
+
     if (isset($_SESSION['errors'])) {
         $view->getEnvironment()->addGlobal('errors', $_SESSION['errors']);
         unset($_SESSION['errors']);

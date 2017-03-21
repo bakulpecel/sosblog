@@ -169,6 +169,20 @@ desired effect
             <li><a href="{{ path_for('post.trash') }}">Trash</a></li>
           </ul>
         </li>
+
+        <!-- user -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-pencil"></i> <span>User</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ path_for('user.list') }}">List</a></li>
+            <li><a href="{{ path_for('user.add') }}">Add</a></li>
+            <li><a href="{{ path_for('user.trash') }}">Trash</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
