@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="box box-primary">
-        <form method="post" autocomplete="off" action="/post/{{ article.id }}/edit">
+        <form method="post" autocomplete="off" action="{{ path_for('post.edit', {('id'):article.id} ) }}">
             <div class="box-body">
                 <div class="form-group {{ errors.title ? 'has-error': '' }}">
                     <input type="text" name="title" class="form-control" placeholder="Title" value="{{ article.title}}">

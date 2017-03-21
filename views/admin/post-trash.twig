@@ -16,8 +16,8 @@
                 {% for article in article %}
                 <tr>
                     <td>{{ article.title }}</td>
-                    <td><a href="/post/{{ article.id }}/restore"><i class="fa fa-undo"></i></a></td>
-                    <td><a href="/post/{{ article.id }}/hard-delete"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="{{ path_for('post.restore', {('id'):article.id} ) }}"><i class="fa fa-undo"></i></a></td>
+                    <td><a href="{{ path_for('post.hard-delete', {('id'):article.id} ) }}"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 {% endfor %}
             </table>
