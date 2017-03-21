@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <title>{% block title %}{% endblock %}Social Blog</title>
+        {% include 'templates/partials/head.twig' %}
+    </head>
+
+    <body>
+        {% include 'templates/partials/navbar.twig' %}
+        <div class="container" style="padding-top: 55px">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% block pageheader %}{% endblock %}
+                </div>
+            </div>
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </body>
+</html>
