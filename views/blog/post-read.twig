@@ -1,0 +1,14 @@
+{% extends 'templates/blog.twig' %}
+
+{% block title %}Home | {% endblock %}
+
+{% block pageheader %} Read post article {% endblock %}
+
+{% block content %}
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
+                <p class="text-justify">{{ article.content }}</p>
+            </div>
+        </div>
+{% endblock %}
