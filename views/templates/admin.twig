@@ -155,19 +155,32 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+          <a href="#"><i class="fa fa-pencil"></i> <span>Post</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li><a href="{{ path_for('post.list') }}">List</a></li>
+            <li><a href="{{ path_for('post.add') }}">Add</a></li>
+            <li><a href="{{ path_for('post.trash') }}">Trash</a></li>
+          </ul>
+        </li>
+
+        <!-- user -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-pencil"></i> <span>User</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ path_for('user.list') }}">List</a></li>
+            <li><a href="{{ path_for('user.add') }}">Add</a></li>
+            <li><a href="{{ path_for('user.trash') }}">Trash</a></li>
           </ul>
         </li>
       </ul>
