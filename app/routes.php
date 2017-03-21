@@ -1,13 +1,15 @@
 <?php
 
-$app->get('/', 'App\Controllers\HomeController:index')->setName('home');
+$app->get('/', 'App\Controllers\PostController:getListFrontBlog')->setName('home');
 
+$app->get('/read/{id}', 'App\Controllers\PostController:getRead')->setName('post.read');
 // Auth
 $app->get('/auth/signup','App\Controllers\UserController:getSignUp')->setName('auth.signup');
 $app->post('/auth/signup','App\Controllers\UserController:postSignUp');
 $app->get('/auth/signin','App\Controllers\UserController:getSignIn')->setName('auth.signin');
 $app->post('/auth/signin','App\Controllers\UserController:postSignIn');
 $app->get('/auth/signout','App\Controllers\UserController:getSignOut');
+
 // User
 $app->get('/user/list', 'App\Controllers\UserController:getList')->setName('user.list');
 $app->get('/user/trash','App\Controllers\UserController:getTrash')->setName('user.trash');
