@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% include 'templates/partials/head.twig' %}
+    </head>
+
+    <body>
+        <div class="container" style="padding-top: 10%">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
