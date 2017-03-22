@@ -81,7 +81,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ login.username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -89,8 +89,8 @@ desired effect
                 <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ login.username }}
+                  <small>Registered Since {{login.date_created | date('F Y')}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -114,7 +114,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{path_for('auth.signout')}}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -135,7 +135,7 @@ desired effect
           <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ login.username }}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -170,19 +170,9 @@ desired effect
           </ul>
         </li>
 
-        <!-- user -->
-        <li class="treeview">
-          <a href="#"><i class="fa fa-user"></i> <span>User</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ path_for('user.list') }}">List</a></li>
-            <li><a href="{{ path_for('user.add') }}">Add</a></li>
-            <li><a href="{{ path_for('user.trash') }}">Trash</a></li>
-          </ul>
-        </li>
+        {% if login.admin %}
+         {%include login.admin %}
+        {% endif %}
       </ul>
       <!-- /.sidebar-menu -->
     </section>
