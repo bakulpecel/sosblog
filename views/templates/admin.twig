@@ -7,7 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %}Dashboard</title>
+  <link rel="shortcut icon" type="image/png" href="https://cdn1.modx.com/assets/i/site-icons/modx-logo-60.png"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -62,7 +63,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SB</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Social</b>Blog</span>
+      <span class="logo-lg"><i class="fa fa-modx"></i><b> Social</b>Blog</span>
     </a>
 
     <!-- Header Navbar -->
@@ -81,7 +82,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{ login.username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -89,8 +90,8 @@ desired effect
                 <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ login.username }}
+                  <small>Registered Since {{login.date_created | date('F Y')}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -114,7 +115,7 @@ desired effect
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{path_for('auth.signout')}}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -135,7 +136,7 @@ desired effect
           <img src="{{ base_url() }}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ login.username }}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -164,25 +165,28 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ path_for('post.list') }}">List</a></li>
+            <li><a href="{{ path_for('post.list') }}">See all</a></li>
             <li><a href="{{ path_for('post.add') }}">Add</a></li>
             <li><a href="{{ path_for('post.trash') }}">Trash</a></li>
           </ul>
         </li>
 
-        <!-- user -->
+        <!-- Comment -->
         <li class="treeview">
-          <a href="#"><i class="fa fa-user"></i> <span>User</span>
+          <a href="#"><i class="fa fa-comments"></i> <span>Comment</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ path_for('user.list') }}">List</a></li>
-            <li><a href="{{ path_for('user.add') }}">Add</a></li>
-            <li><a href="{{ path_for('user.trash') }}">Trash</a></li>
+            <li><a href="#">See all</a></li>
           </ul>
         </li>
+
+        {% if login.admin %}
+          {%include login.admin %}
+        {% endif %}
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -216,10 +220,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      [ ] with <i class="fa fa-heart" style="color : #ff0040"></i> in Indonesia
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2017 <a href="#">SocialBlog</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->

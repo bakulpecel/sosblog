@@ -45,9 +45,12 @@ class auth
             return false;
         } else {
             if (password_verify($password, $user->password)) {
-                // $user = unserialize(serialize($user));
-                $_SESSION['login'] = $user->toArray();
-
+                $_SESSION['login']          = $user->toArray();
+                if ($this->isAdmin()) {
+                    $_SESSION['login']['admin'] = 'templates/partials/admin-menu.twig';
+                } else {
+                    $_SESSION['login']['admin'] = NULL;
+                }
                 return true;
             } else {
                 $_SESSION['errors']['password'] = "Password salah";

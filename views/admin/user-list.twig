@@ -7,12 +7,8 @@
 {% block content %}
 
 <div class="box box-primary">
-    <div class="col-sm-2 col-sm-offset-10">
-        <a href="{{base_url()}}/user/add" class="btn btn-primary btn-block">Tambah</a>
-    </div>
-
     <div class="box-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-striped">
             <tr>
                 <th>User</th>
                 <th>Email</th>
@@ -23,8 +19,8 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td><a href="{{ user.id }}/edit"><i class="fa fa-pencil"></i></a></td>
-                    <td><a href="{{ user.id }}/delete"><i class="fa fa-trash"></i></a></td>
+                    <td class="text-center"><a href="{{ user.id }}/edit"><i class="fa fa-pencil"></i></a></td>
+                    <td class="text-center"><a href="{{ user.id }}/delete"><i class="fa fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
         </table>

@@ -1,6 +1,6 @@
 {% extends 'templates/admin.twig' %}
 
-{% block title %}All List Publish Post{% endblock %}
+{% block title %}See All - {% endblock %}
 
 {% block pageheader %}All List Publish Post{% endblock %}
 
@@ -16,8 +16,8 @@
                 {% for article in article %}
                     <tr>
                         <td>{{ article.title }}</td>
-                        <td><a href="{{ path_for('post.edit', {('id'):article.id} ) }}"><i class="fa fa-pencil"></i></a></td>
-                        <td><a href="{{ path_for('post.delete', {('id'):article.id} ) }}"><i class="fa fa-trash"></i></a></td>
+                        <td class="text-center"><a href="{{ path_for('post.edit', {('id'):article.id} ) }}"><i class="fa fa-pencil"></i></a></td>
+                        <td class="text-center"><a href="{{ path_for('post.delete', {('id'):article.id} ) }}"><i class="fa fa-trash"></i></a></td>
                     </tr>
                 {% endfor %}
             </table>
