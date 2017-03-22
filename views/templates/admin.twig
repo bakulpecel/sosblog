@@ -7,7 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}{% endblock %}Dashboard</title>
+  <link rel="shortcut icon" type="image/png" href="https://cdn1.modx.com/assets/i/site-icons/modx-logo-60.png"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -62,7 +63,7 @@ desired effect
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>SB</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Social</b>Blog</span>
+      <span class="logo-lg"><i class="fa fa-modx"></i><b> Social</b>Blog</span>
     </a>
 
     <!-- Header Navbar -->
@@ -164,9 +165,21 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ path_for('post.list') }}">List</a></li>
+            <li><a href="{{ path_for('post.list') }}">See all</a></li>
             <li><a href="{{ path_for('post.add') }}">Add</a></li>
             <li><a href="{{ path_for('post.trash') }}">Trash</a></li>
+          </ul>
+        </li>
+
+        <!-- Comment -->
+        <li class="treeview">
+          <a href="#"><i class="fa fa-comments"></i> <span>Comment</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#">See all</a></li>
           </ul>
         </li>
 
@@ -178,7 +191,7 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ path_for('user.list') }}">List</a></li>
+            <li><a href="{{ path_for('user.list') }}">See all</a></li>
             <li><a href="{{ path_for('user.add') }}">Add</a></li>
             <li><a href="{{ path_for('user.trash') }}">Trash</a></li>
           </ul>
@@ -216,10 +229,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      [ ] with <i class="fa fa-heart" style="color : #ff0040"></i> in Indonesia
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2017 <a href="#">SocialBlog</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
