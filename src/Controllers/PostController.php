@@ -46,7 +46,7 @@ class PostController extends Controller
 			$article = new PostModel;
 			$article->title 	= $request['title'];
 			$article->content 	= $request['content'];
-			$article->user_id	= 1;
+			$article->user_id	= 2;
 			$article->save();
 
 			return $response->withRedirect($this->router->pathFor('post.list'));
@@ -65,6 +65,35 @@ class PostController extends Controller
 	{
 		return PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
 	}
+
+	/**
+	*
+	*/
+	public static function getPostUser()
+	{
+		return PostModel::orderBy('id', 'DESC')->where('deleted', 0)->where('user_id', $args['user_id'])->get();
+	}
+
+	/**
+	*
+	*/
+	public function getListByUser($request, $response, $args)
+	{
+		$article = self::getPostUser();
+
+		return $this->view->render($response , 'admin/post-list.twig', ['article' => $article]);
+	}
+
+	/**
+	*
+	*/
+	public function getPostByUser($request, $response, $args)
+	{
+		$article = self::getPostUser();
+
+		return $this->view->render($response, 'blog/post-list.twig', ['article' => $article]);
+	}
+
 
 	/**
 	*
