@@ -55,8 +55,12 @@ class UserController extends Controller
     */
     public function getAdd($request, $response)
     {
-        if ($this->checkAdmin()) {
-            return $this->view->render($response, 'admin/user-add.twig');
+        if ($this->checkUser()) {
+            if ($this->checkAdmin()) {
+                return $this->view->render($response, 'admin/user-add.twig');
+            } else {
+                return $response->withRedirect($this->router->pathFor('post.list'));
+            }
         } else {
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
@@ -400,8 +404,7 @@ class UserController extends Controller
                 if ($this->checkAdmin()) {
                     return $response->withRedirect($this->router->pathFor('user.list'));
                 } else {
-                    echo "anda user bukan admin";
-                    // return   $response->withRedirect($this->router->pathFor('dashboard.home',['username'=>$_SESSION['user']['username']]));
+                    return   $response->withRedirect($this->router->pathFor('post.list'));
                 }
             } else {
                 return $response->withRedirect($this->router->pathFor('auth.signin'));

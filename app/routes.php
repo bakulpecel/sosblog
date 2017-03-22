@@ -6,9 +6,11 @@ $app->get('/read/{id}', 'App\Controllers\PostController:getRead')->setName('post
 // Auth
 $app->get('/auth/signup','App\Controllers\UserController:getSignUp')->setName('auth.signup');
 $app->post('/auth/signup','App\Controllers\UserController:postSignUp');
+
 $app->get('/auth/signin','App\Controllers\UserController:getSignIn')->setName('auth.signin');
 $app->post('/auth/signin','App\Controllers\UserController:postSignIn');
-$app->get('/auth/signout','App\Controllers\UserController:getSignOut');
+
+$app->get('/auth/signout','App\Controllers\UserController:getSignOut')->setName('auth.signout');
 
 // User
 $app->get('/user/list', 'App\Controllers\UserController:getList')->setName('user.list');
