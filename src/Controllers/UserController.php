@@ -425,5 +425,11 @@ class UserController extends Controller
         }
     }
 
+    public static function getUsername($id)
+    {
+        $user = UserModel::where('id', $id)->first();
+        return $user->username();
+    }
+
 
 }

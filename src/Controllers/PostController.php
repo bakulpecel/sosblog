@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\PostModel;
 use App\Models\UserModel;
+use App\Controllers\UserController;
 
 /**
 * 
@@ -46,7 +47,7 @@ class PostController extends Controller
 			$article = new PostModel;
 			$article->title 	= $request['title'];
 			$article->content 	= $request['content'];
-			$article->user_id	= 2;
+			$article->user_id	= $_SESSION['login']['id'];
 			$article->save();
 
 			return $response->withRedirect($this->router->pathFor('post.list'));
@@ -69,9 +70,9 @@ class PostController extends Controller
 	/**
 	*
 	*/
-	public static function getPostUser()
+	public static function getPostUser($args)
 	{
-		return PostModel::orderBy('id', 'DESC')->where('deleted', 0)->where('user_id', $args['user_id'])->get();
+		return PostModel::orderBy('created_at', 'DESC')->where('deleted', 0)->where('user_id', $args)->get();
 	}
 
 	/**
@@ -79,9 +80,9 @@ class PostController extends Controller
 	*/
 	public function getListByUser($request, $response, $args)
 	{
-		$article = self::getPostUser();
+		$article = self::getPostUser($args['id']);
 
-		return $this->view->render($response , 'admin/post-list.twig', ['article' => $article]);
+		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
 	}
 
 	/**
@@ -89,7 +90,7 @@ class PostController extends Controller
 	*/
 	public function getPostByUser($request, $response, $args)
 	{
-		$article = self::getPostUser();
+		$article = self::getPostUser($args['id'])->where();
 
 		return $this->view->render($response, 'blog/post-list.twig', ['article' => $article]);
 	}
@@ -119,10 +120,14 @@ class PostController extends Controller
 	*
 	*/
 	public function getListAdmin($request, $response)
-	{
-		$article = self::getList();
-
-		return $this->view->render($response, 'admin/post-list.twig', ['article' => $article]);
+	{	
+		if ($_SESSION['login']['username'] == 'admin') {
+			$article = PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
+			return $this->view->render($response, 'admin/post-list.twig', ['article' => $article]);
+		} else {
+			$article = PostModel::orderBy('id', 'DESC')->where('user_id', $_SESSION['login']['id'])->where('deleted', 0)->get();
+			return $this->view->render($response, 'admin/post-list.twig', ['article' => $article]);
+		}
 	}
 
 	/**

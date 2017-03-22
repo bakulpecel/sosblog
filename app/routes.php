@@ -19,8 +19,6 @@ $app->get('/user/trash','App\Controllers\UserController:getTrash')->setName('use
 $app->get('/user/add','App\Controllers\UserController:getAdd')->setName('user.add');
 $app->post('/user/add','App\Controllers\UserController:postAdd');
 
-$app->get('/{username}/post', 'App\Controllers\PostController:getPostByUser')->setName('user.post');
-
 $app->get('/user/{id}/edit','App\Controllers\UserController:getEdit')->setName('user.edit');
 $app->post('/user/{id}/edit','App\Controllers\UserController:postEdit');
 
@@ -44,3 +42,5 @@ $app->get('/post/{id}/hard-delete', 'App\Controllers\PostController:setHardDelet
 $app->get('/post/{id}/restore', 'App\Controllers\PostController:setRestore')->setName('post.restore');
 
 $app->get('/post/trash', 'App\Controllers\PostController:getTrashList')->setName('post.trash');
+
+$app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->setName('post.name');

@@ -8,6 +8,7 @@
         <div class="media">
             <div class="media-body">
                 <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
+                <i class="fa fa-user"> <a href="">{{ article.user_id }}</a></i>
                 <p class="text-justify">{{ article.content }}</p>
             </div>
         </div>
