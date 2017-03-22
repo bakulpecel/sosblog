@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PostModel;
+use App\Models\UserModel;
 
 /**
 * 
@@ -63,6 +64,26 @@ class PostController extends Controller
 	public static function getList()
 	{
 		return PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
+	}
+
+	/**
+	*
+	*/
+	public function getListFrontBlog($request, $response)
+	{
+		$article = self::getList();
+
+		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
+	} 
+
+	/**
+	*
+	*/
+	public function getRead($request, $response, $args)
+	{
+		$article = PostModel::find($args['id']);
+
+		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article]);
 	}
 
 	/**
