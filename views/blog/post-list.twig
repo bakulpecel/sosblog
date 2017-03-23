@@ -11,9 +11,9 @@
             <div class="media-body">
                 <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
                 <p class="text-justify">{{ article.content|slice(0, 320) }} <a href="{{ path_for('post.read', {('id'):article.id} ) }}">Readmore...</a></p>
-                <i class="fa fa-user"> <a href="">Ilham Arrouf</a></i>
+                <i class="fa fa-user"> <a href="{{ path_for('post.name', {('id'):article.user_id}) }}">{{ article.user_id }}</a></i>
                 <i class="fa fa-calendar"> {{ article.created_at|date('d/m/Y') }} </i>
-                <i class="fa fa-clock-o"> {{ article.created_at|slice(11,12) }}</i>
+                <i class="fa fa-clock-o"> {{ article.created_at|date("H:m") }}</i>
             </div>
         </div>
         </div>
