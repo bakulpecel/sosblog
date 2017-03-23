@@ -42,3 +42,5 @@ $app->get('/post/{id}/hard-delete', 'App\Controllers\PostController:setHardDelet
 $app->get('/post/{id}/restore', 'App\Controllers\PostController:setRestore')->setName('post.restore');
 
 $app->get('/post/trash', 'App\Controllers\PostController:getTrashList')->setName('post.trash');
+
+$app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->setName('post.name');
