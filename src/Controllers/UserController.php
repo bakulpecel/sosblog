@@ -407,9 +407,11 @@ class UserController extends Controller
                     return   $response->withRedirect($this->router->pathFor('post.list'));
                 }
             } else {
+                $this->flash->addMessage('error', ' ');
                 return $response->withRedirect($this->router->pathFor('auth.signin'));
             }
         } else {
+            $this->flash->addMessage('error', ' ');
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }

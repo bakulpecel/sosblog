@@ -26,4 +26,10 @@
             </div>
         </div>
     </div>
+
+    {% if flash.getMessage('error').0 %}
+        <script>
+            swal("Wrong Username or Password")
+        </script>
+    {% endif %}
 {% endblock %}

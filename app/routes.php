@@ -44,3 +44,5 @@ $app->get('/post/{id}/restore', 'App\Controllers\PostController:setRestore')->se
 $app->get('/post/trash', 'App\Controllers\PostController:getTrashList')->setName('post.trash');
 
 $app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->setName('post.name');
+
+$app->get('/post/{id}/comment', 'App\Controllers\CommentController:postComment')->setName('comment');
