@@ -11,7 +11,6 @@ $app->get('/auth/signin','App\Controllers\UserController:getSignIn')->setName('a
 $app->post('/auth/signin','App\Controllers\UserController:postSignIn');
 
 $app->get('/auth/signout','App\Controllers\UserController:getSignOut')->setName('auth.signout');
-$app->get('/auth/signout','App\Controllers\UserController:getSignOut');
 
 // User
 $app->get('/user/list', 'App\Controllers\UserController:getList')->setName('user.list');
