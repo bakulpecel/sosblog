@@ -32,7 +32,7 @@ class Comments extends AbstractMigration
               ->addColumn('post_id', 'integer')
               ->addColumn('user_id', 'integer')
               ->addTimestamps()
-              ->addColumn('deleted', 'integer')
+              ->addColumn('deleted', 'integer', ['default' => 0])
               ->addForeignKey('post_id', 'posts', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
               ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
               ->create();

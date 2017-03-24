@@ -1,0 +1,18 @@
+{% extends 'templates/admin.twig' %}
+
+{% block title %}Edit Comment - {% endblock %}
+
+{% block pageheader %}Edit Comment{% endblock %}
+
+{% block content %}
+    <div class="media">
+        <form method="post" autocomplete="off" action="{{ path_for('comment.edit', {('id'):article.id}) }}">
+            <div class="form-group {{ errors.comment ? 'has-error' | '' }}">
+                <textarea name="comment" class="form-control" rows="4"></textarea>
+                {% if errors comment %}
+                    <span>{{ errors.comment|first }}</span>
+            </div>
+            <button class="btn btn-default center-block"><i class="fa fa-reply"></i> Submit</button>
+        </form>
+    </div>
+{% endblock %}
