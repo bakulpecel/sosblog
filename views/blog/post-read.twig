@@ -16,26 +16,23 @@
             <p class="text-justify">{{ article.content }}</p>
         </div>
     </div>
+    {% for comment in comment %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            Ini nama
+            <p>{{ comment.user_id }}</p>
         </div>
         <div class="panel-body">
-            Ini Comment
+            <p class="text-justify">{{ comment.comment }}</p>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Ini nama
-        </div>
-        <div class="panel-body">
-            Ini Comment
-        </div>
-    </div>
+    {% endfor %}
     <div class="media">
         <form method="post" autocomplete="off" action="{{ path_for('comment', {('id'):article.id}) }}">
-            <div class="form-group">
-                <textarea class="form-control" rows="4"></textarea>
+            <div class="form-group {{ errors.comment ? 'has-error' : '' }}">
+                <textarea name="comment" class="form-control" rows="4"></textarea>
+                {% if errors.comment %}
+                    <span class="help-block">{{ errors.comment|first }}</span>
+                {% endif %}
             </div>
             <button class="btn btn-default center-block"><i class="fa fa-reply"></i> Submit</button>
         </form>

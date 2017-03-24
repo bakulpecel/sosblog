@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PostModel;
 use App\Models\UserModel;
 use App\Controllers\UserController;
+use App\Controllers\CommentController;
 
 /**
 * 
@@ -37,7 +38,7 @@ class PostController extends Controller
 			],
 			'lengthMax' => [
 				['title', 50],
-				['content', 5000]
+				['content', 50000]
 			],
 		];
 
@@ -113,7 +114,12 @@ class PostController extends Controller
 	{
 		$article = PostModel::find($args['id']);
 
-		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article]);
+		$comment = CommentController::getByPost($args['id']);
+
+		// var_dump($comment);
+		// die();
+
+		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article, 'comment' => $comment]);
 	}
 
 	/**
