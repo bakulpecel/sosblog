@@ -2,14 +2,39 @@
 
 {% block title %}Home | {% endblock %}
 
-{% block pageheader %} Read post article {% endblock %}
+{% block pageheader %} {{ article.title }} {% endblock %}
 
 {% block content %}
-        <div class="media">
-            <div class="media-body">
-                <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
-                <i class="fa fa-user"> <a href="">{{ article.user_id }}</a></i>
-                <p class="text-justify">{{ article.content }}</p>
-            </div>
+    <div class="media">
+        <div class="media-heading">
+            <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
+            <i class="fa fa-user"> <a href="">{{ article.user_id }}</a></i>
+            <i class="fa fa-calendar"> {{ article.created_at|date('d/m/Y') }} </i>
+            <i class="fa fa-clock-o"> {{ article.created_at|date("H:m") }}</i>
         </div>
+        <div class="media-body">
+            <p class="text-justify">{{ article.content }}</p>
+        </div>
+    </div>
+    {% for comment in comment %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <p>{{ comment.user_id }}</p>
+        </div>
+        <div class="panel-body">
+            <p class="text-justify">{{ comment.comment }}</p>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="media">
+        <form method="post" autocomplete="off" action="{{ path_for('comment', {('id'):article.id}) }}">
+            <div class="form-group {{ errors.comment ? 'has-error' : '' }}">
+                <textarea name="comment" class="form-control" rows="4"></textarea>
+                {% if errors.comment %}
+                    <span class="help-block">{{ errors.comment|first }}</span>
+                {% endif %}
+            </div>
+            <button class="btn btn-default center-block"><i class="fa fa-reply"></i> Submit</button>
+        </form>
+    </div>
 {% endblock %}

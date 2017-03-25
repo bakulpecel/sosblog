@@ -1,0 +1,37 @@
+{% extends 'templates/admin.twig' %} 
+
+{% block title %} List All Comment {% endblock %}
+
+{% block pageheader %} Comment All {% endblock %}
+
+{% block content %}
+	<div class="box box-primary">
+        <div class="box-body">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Comment</th>
+                    <th>Post</th>
+                    <th style="width: 40px">Edit</th>
+                    <th style="width: 40px">Delete</th>
+                </tr>
+                {% for comment in comment %}
+                    <tr>
+                        <td>{{ comment.comment|slice(0, 20) }}</td>
+                        <td>{{ comment.post_id }}</td>
+                        <td class="text-center"><a href=""><i class="fa fa-pencil"></i></a></td>
+                        <td class="text-center"><a href=""><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>    
+{% endblock %}
