@@ -30,8 +30,10 @@ class PostTags extends AbstractMigration
         $table = $this->table('post_tags');
         $table->addColumn('post_id', 'integer')
               ->addColumn('tag_id', 'integer')
+              ->addColumn('user_id', 'integer')
               ->addForeignKey('post_id', 'posts', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
               ->addForeignKey('tag_id', 'tags', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
+              ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
               ->create();
     }
 }
