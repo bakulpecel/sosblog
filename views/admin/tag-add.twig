@@ -1,0 +1,23 @@
+{% extends 'templates/admin.twig' %}
+
+{% block title %}Add New Post - {% endblock %}
+
+{% block pageheader %}Add Post{% endblock %}
+
+{% block content %}
+    <div class="box box-primary">
+        <form method="post" autocomplete="off" action="{{ path_for('tag.add') }}">
+            <div class="box-body">
+                <div class="form-group {{ errors.tags ? 'has-error': '' }}">
+                    <input type="text" name="tags" class="form-control" placeholder="Tags">
+                    {% if errors.tags %}
+                        <span class="help-block">{{ errors.tags }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary center-block"><i class="fa fa-reply"></i> Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

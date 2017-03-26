@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UserModel;
 
 /**
-* 
+*
 */
 class PostModel extends Model
 {
@@ -15,8 +15,19 @@ class PostModel extends Model
     protected $fillable		= ['title', 'content', 'user_id', 'deleted'];
     public $timestamps		= true;
 
+    /**
+    *
+    */
     public function user()
     {
         return $this->belongsTo(UserModel::class);
+    }
+
+    /**
+    *
+    */
+    public function postTag()
+    {
+        return $this->hasMany(App\Models\PostTagModel::class);
     }
 }

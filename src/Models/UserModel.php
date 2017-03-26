@@ -15,8 +15,19 @@ class UserModel extends Model
     protected $fillable     = ['username', 'email', 'password', 'role_id', 'deleted'];
     public $timeStamps      = true;
 
+    /**
+    *
+    */
     public function post()
     {
         return $this->hashMany(PostModel::class);
+    }
+
+    /**
+    *
+    */
+    public function postTag()
+    {
+        return $this->hasMany(PostTagModel::class,'user_id');
     }
 }

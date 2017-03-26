@@ -8,18 +8,18 @@ use App\Controllers\UserController;
 use App\Controllers\CommentController;
 
 /**
-* 
+*
 */
 class PostController extends Controller
 {
 	/**
-	* 
+	*
 	*/
 	public function getAdd($request, $response)
 	{
 		return $this->view->render($response, 'admin/post-add.twig');
 	}
-	
+
 	/**
 	*
 	*/
@@ -105,7 +105,7 @@ class PostController extends Controller
 		$article = self::getList();
 
 		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
-	} 
+	}
 
 	/**
 	*
@@ -123,7 +123,7 @@ class PostController extends Controller
 	*
 	*/
 	public function getListAdmin($request, $response)
-	{	
+	{
 		if ($_SESSION['login']['username'] == 'admin') {
 			$article = PostModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
 			return $this->view->render($response, 'admin/post-list.twig', ['article' => $article]);
@@ -227,7 +227,6 @@ class PostController extends Controller
 
 		return $response->withRedirect($this->router->pathFor('post.trash'));
 	}
-
 
 	/**
 	*

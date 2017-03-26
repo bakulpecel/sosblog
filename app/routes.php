@@ -47,6 +47,10 @@ $app->get('/post/trash', 'App\Controllers\PostController:getTrashList')->setName
 
 $app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->setName('post.name');
 
+// Tag
+$app->get('/tags/add', 'App\Controllers\TagController:getAdd')->setName('tag.add');
+$app->post('/tags/add', 'App\Controllers\TagController:postAdd');
+
 $app->post('/post/{id}/comment', 'App\Controllers\CommentController:postComment')->setName('comment');
 
 $app->get('/comment/list', 'App\Controllers\CommentController:getListCommentAdmin')->setName('comment.list');
