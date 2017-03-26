@@ -14,6 +14,18 @@ class Posts extends AbstractSeed
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
 
+        for ($i = 0; $i < 10; $i++) { 
+            $data[] = [
+                'title'     => $faker->sentence,
+                'content'   => $faker->text($maxNbChars = 20000),
+                'user_id'   => rand(1, 5),
+            ];
+        }
+
+        $post = $this->table('posts');
+        $post->insert($data)
+             ->save();
     }
 }

@@ -8,7 +8,7 @@
     <div class="media">
         <div class="media-heading">
             <h4 class="media-heading"><a href="{{ path_for('post.read', {('id'):article.id}) }}">{{ article.title }}</a></h4>
-            <i class="fa fa-user"> <a href="">{{ article.user_id }}</a></i>
+            <i class="fa fa-user"> <a href="">{{ article.user.username }}</a></i>
             <i class="fa fa-calendar"> {{ article.created_at|date('d/m/Y') }} </i>
             <i class="fa fa-clock-o"> {{ article.created_at|date("H:m") }}</i>
         </div>
@@ -19,7 +19,7 @@
     {% for comment in comment %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <p>{{ comment.user_id }}</p>
+            <p>{{ comment.user.username }}</p>
         </div>
         <div class="panel-body">
             <p class="text-justify">{{ comment.comment }}</p>

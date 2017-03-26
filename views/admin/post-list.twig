@@ -9,13 +9,15 @@
         <div class="box-body">
             <table class="table table-bordered table-striped">
                 <tr>
-                    <th>Title</th>
+                    <th class="text-center">Title</th>
+                    <th class="text-center">User</th>
                     <th style="width: 40px">Edit</th>
                     <th style="width: 40px">Delete</th>
                 </tr>
                 {% for article in article %}
                     <tr>
                         <td>{{ article.title }}</td>
+                        <td>{{ article.user.username }}</td>
                         <td class="text-center"><a href="{{ path_for('post.edit', {('id'):article.id} ) }}"><i class="fa fa-pencil"></i></a></td>
                         <td class="text-center"><a href="{{ path_for('post.delete', {('id'):article.id} ) }}"><i class="fa fa-trash"></i></a></td>
                     </tr>

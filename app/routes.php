@@ -28,6 +28,8 @@ $app->get('/user/{id}/delete-permanent','App\Controllers\UserController:delete')
 $app->get('/user/{id}/restore','App\Controllers\UserController:restore');
 
 // Post
+$app->post('/post/search', 'App\Controllers\PostController:getSearch')->setName('post.search');
+
 $app->get('/post/add', 'App\Controllers\PostController:getAdd')->setName('post.add');
 $app->post('/post/add', 'App\Controllers\PostController:postAdd');
 
@@ -48,5 +50,3 @@ $app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->se
 $app->post('/post/{id}/comment', 'App\Controllers\CommentController:postComment')->setName('comment');
 
 $app->get('/comment/list', 'App\Controllers\CommentController:getListCommentAdmin')->setName('comment.list');
-
-// $app->get('/comment/edit', 'App\Controllers\CommentController:')

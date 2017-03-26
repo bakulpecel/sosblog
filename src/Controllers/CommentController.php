@@ -14,6 +14,10 @@ class CommentController extends Controller
     */
     public function postComment($request, $response, $args)
     {
+        if (!$_SESSION['login']) {
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
+
     	$request = $request->getParsedBody();
 
     	$rules = [

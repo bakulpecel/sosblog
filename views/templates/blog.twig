@@ -6,15 +6,20 @@
     </head>
 
     <body>
-        {% include 'templates/partials/navbar.twig' %}
-        <div class="container" style="padding-top: 55px; padding-bottom: 55px;">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    {% block pageheader %}{% endblock %}
+        <div class="container">
+            {% include 'templates/partials/navbar.twig' %}
+            
+            <div class="row" style="padding-top: 55px; padding-bottom: 55px;">
+                <div class="col-md-8 col-lg-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            {% block pageheader %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        {% block content %}{% endblock %}
+                    </div>
                 </div>
-            </div>
-            <div class="container-fluid">
-                {% block content %}{% endblock %}
             </div>
         </div>
     </body>

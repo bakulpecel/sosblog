@@ -116,9 +116,6 @@ class PostController extends Controller
 
 		$comment = CommentController::getByPost($args['id']);
 
-		// var_dump($comment);
-		// die();
-
 		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article, 'comment' => $comment]);
 	}
 
@@ -229,5 +226,18 @@ class PostController extends Controller
 		$article->update();
 
 		return $response->withRedirect($this->router->pathFor('post.trash'));
+	}
+
+
+	/**
+	*
+	*/
+	public function getSearch($request, $response)
+	{
+		$request = $request->getParsedBody();
+
+		$article = PostModel::where('title', 'LIKE', '%' . $request['search'] . '%')->orWhere('content', 'LIKE', '%' . $request['search'] . '%')->get();
+
+		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
 	}
 }
