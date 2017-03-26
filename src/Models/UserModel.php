@@ -13,4 +13,9 @@ class UserModel extends Model
     protected $primaryKey   = 'id';
     protected $fillable     = ['username', 'email', 'password', 'role_id', 'deleted'];
     public $timeStamps      = true;
+
+    public function postTag()
+    {
+        return $this->hasMany(PostTagModel::class,'user_id');
+    }
 }

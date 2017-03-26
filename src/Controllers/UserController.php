@@ -167,10 +167,11 @@ class UserController extends Controller
         $this->validator->rules($rules);
 
         if ($this->validator->validate()) {
-            if (empty($request['new-password'])) {
-                $user = UserModel::where('id', $args['id'])->first();
-                $cekuser = UserModel::where('username', $request['username'])->first();
-                $cekemail = UserModel::where('email', $request['email'])->first();
+            $cekuser = UserModel::where('username', $request['username'])->first();
+            $cekemail = UserModel::where('email', $request['email'])->first();
+            $user = UserModel::where('id', $args['id'])->first();
+
+            if (empty($request['new-password']) or !isset($request['new-password'])) {
 
                 if ($user['username'] === $request['username'] && $user['email'] === $request['email']) {
                     // $user->email    = $request['email'];
@@ -184,7 +185,7 @@ class UserController extends Controller
 
                         return $response->withRedirect($this->router->pathFor('user.list'));
                     } else {
-                        $_SESSION['errors'] = 'email sudah digunakan. ganti lainnya';
+                        $_SESSION['errors']['email'] = 'email sudah digunakan. ganti lainnya';
                         $_SESSION['old']    = $request;
 
                         return $response->withRedirect($this->router->pathFor('user.edit', $args));
@@ -196,7 +197,7 @@ class UserController extends Controller
 
                         return $response->withRedirect($this->router->pathFor('user.list'));
                     } else {
-                        $_SESSION['errors'] = 'username sudah digunakan. ganti lainnya';
+                        $_SESSION['errors']['username'] = 'username sudah digunakan. ganti lainnya';
                         $_SESSION['old']    = $request;
 
                         return $response->withRedirect($this->router->pathFor('user.edit', $args));
@@ -211,13 +212,13 @@ class UserController extends Controller
 
                             return $response->withRedirect($this->router->pathFor('user.list'));
                         } else {
-                            $_SESSION['errors'] = 'email sudah digunakan. ganti lainnya';
+                            $_SESSION['errors']['email'] = 'email sudah digunakan. ganti lainnya';
                             $_SESSION['old']    = $request;
 
                             return $response->withRedirect($this->router->pathFor('user.edit', $args));
                         }
                     } else {
-                        $_SESSION['errors'] = 'username sudah digunakan. ganti lainnya';
+                        $_SESSION['errors']['username'] = 'username sudah digunakan. ganti lainnya';
                         $_SESSION['old']    = $request;
 
                         return $response->withRedirect($this->router->pathFor('user.edit', $args));
@@ -234,13 +235,60 @@ class UserController extends Controller
                                     ->rule('email', 'email')
                                     ->rule('lengthMin', ['password',6]);
                     if ($this->validator->validate()) {
-                        $user = UserModel::where('id', $args['id'])->first();
-                        $user->username = $request['username'];
-                        $user->email    = $request['email'];
-                        $user->password = password_hash($request['new-password'], PASSWORD_DEFAULT);
-                        $user->update();
+                        if ($user['username'] === $request['username'] && $user['email'] === $request['email']) {
+                            $user->password = password_hash($request['new-password'], PASSWORD_DEFAULT);
+                            $user->update();
 
-                        return $response->withRedirect($this->router->pathFor('user.list'));
+                            return $response->withRedirect($this->router->pathFor('user.list'));
+                        } elseif ($user['username'] === $request['username'] && $user['email'] !== $request['email']) {
+                            if (is_null($cekemail['email'])) {
+                                $user->email    = $request['email'];
+                                $user->password = password_hash($request['new-password'], PASSWORD_DEFAULT);
+                                $user->update();
+
+                                return $response->withRedirect($this->router->pathFor('user.list'));
+                            } else {
+                                $_SESSION['errors']['email'] = 'email sudah digunakan. ganti lainnya';
+                                $_SESSION['old']    = $request;
+
+                                return $response->withRedirect($this->router->pathFor('user.edit', $args));
+                            }
+                        } elseif ($user['username'] !== $request['username'] && $user['email'] === $request['email']) {
+                            if (is_null($cekuser['username'])) {
+                                $user->username    = $request['username'];
+                                $user->password = password_hash($request['new-password'], PASSWORD_DEFAULT);
+                                $user->update();
+
+                                return $response->withRedirect($this->router->pathFor('user.list'));
+                            } else {
+                                $_SESSION['errors']['username'] = 'username sudah digunakan. ganti lainnya';
+                                $_SESSION['old']    = $request;
+
+                                return $response->withRedirect($this->router->pathFor('user.edit', $args));
+                            }
+                        } else {
+                            if (is_null($cekuser['username'])) {
+
+                                if (is_null($cekemail['email'])) {
+                                    $user->username = $request['username'];
+                                    $user->email    = $request['email'];
+                                    $user->password = password_hash($request['new-password'], PASSWORD_DEFAULT);
+                                    $user->update();
+
+                                    return $response->withRedirect($this->router->pathFor('user.list'));
+                                } else {
+                                    $_SESSION['errors']['email'] = 'email sudah digunakan. ganti lainnya';
+                                    $_SESSION['old']    = $request;
+
+                                    return $response->withRedirect($this->router->pathFor('user.edit', $args));
+                                }
+                            } else {
+                                $_SESSION['errors']['username'] = 'username sudah digunakan. ganti lainnya';
+                                $_SESSION['old']    = $request;
+
+                                return $response->withRedirect($this->router->pathFor('user.edit', $args));
+                            }
+                        }
                     } else {
                         $_SESSION['errors'] = $this->validator->errors();
                         $_SESSION['old']    = $request;
@@ -252,7 +300,8 @@ class UserController extends Controller
         } else {
             $_SESSION['errors'] = $this->validator->errors();
             $_SESSION['old']    = $request;
-
+            // var_dump($_SESSION['errors']);
+            // die();
             return $response->withRedirect($this->router->pathFor('user.edit', $args));
         }
 
@@ -263,6 +312,8 @@ class UserController extends Controller
     */
     public function getList($request, $response)
     {
+        // $this->getUserTag();
+        // die();
         if ($this->checkAdmin()) {
             $user = UserModel::orderBy('id', 'DESC')->where('deleted', 0)->get();
 
@@ -319,7 +370,11 @@ class UserController extends Controller
     */
     public function getSignUp($request, $response)
     {
-        return $this->view->render($response, 'auth/signup.twig');
+        if (!isset($_SESSION['login']) or is_null($_SESSION['login']) or empty($_SESSION['login'])) {
+            return $this->view->render($response, 'auth/signup.twig');
+        } else {
+            return $response->withRedirect($this->router->pathFor('post.list'));
+        }
     }
     /**
     *
@@ -386,7 +441,11 @@ class UserController extends Controller
     */
     public function getSignIn($request, $response)
     {
-        return $this->view->render($response, 'auth/signin.twig');
+        if (!isset($_SESSION['login']) or is_null($_SESSION['login']) or empty($_SESSION['login'])) {
+            return $this->view->render($response, 'auth/signin.twig');
+        } else {
+            return $response->withRedirect($this->router->pathFor('post.list'));
+        }
     }
 
     /**
@@ -427,11 +486,21 @@ class UserController extends Controller
         }
     }
 
-    public static function getUsername($id)
-    {
-        $user = UserModel::where('id', $id)->first();
-        return $user->username();
-    }
+    // public static function getUsername($id)
+    // {
+    //     $user = UserModel::where('id', $id)->first();
+    //     return $user->username();
+    // }
 
+    public function getUserTag()
+    {
+        $postTag = new PostTagController($this);
+        $tag = new TagController($this);
+        $data = $postTag->get()->toArray();
+        foreach ($data as $val) {
+            $datatag[] = $tag->getTagById($val['tag_id']);
+        }
+        return $datatag;
+    }
 
 }
