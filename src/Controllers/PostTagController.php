@@ -63,15 +63,31 @@ class PostTagController extends Controller
         }
     }
 
-    public function postAdd($request, $response, $args)
+    public static function addPostTag($request, $post)
     {
-        $postTag = PostTagModel::where('post_id', $request['post_id'])->where('tag_id', $request['tag_id'])
+        if (!empty($request['tag'])) {
+            foreach ($request['tag'] as $val) {
+                $tag = TagController::getTag($val);
+                if (!is_null($tag)) {
+                    PostTagController::postAdd($post, $tag);
+                } else {
+                    TagController::addTag($val);
+                    $tag = TagController::getTagByName($val);
+                    PostTagController::postAdd($post, $tag);
+                }
+            }
+        }
+    }
+
+    public static function postAdd($post, $tag)
+    {
+        $postTag = PostTagModel::where('post_id', $post['id'])->where('tag_id', $tag['id'])
                     ->where('user_id',$_SESSION['login']['id'])->first();
         if (is_null($postTag)) {
             PostTagModel::create(
                 [
-                    'post_id'   => $request['post_id'],
-                    'tag_id'    => $request['tag_id'],
+                    'post_id'   => $post['id'],
+                    'tag_id'    => $tag['id'],
                     'user_id'   => $_SESSION['login']['id'],
                 ]
             );
@@ -82,5 +98,9 @@ class PostTagController extends Controller
         $postTag = PostTagModel::where('post_id', $request['post_id'])->where('tag_id', $request['tag_id'])
                     ->where('user_id',$request['user_id'])->first();
         $postTag->delete();
+    }
+    public function getPostTag($id)
+    {
+        return PostTagModel::find($id);
     }
 }

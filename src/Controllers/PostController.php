@@ -17,8 +17,14 @@ class PostController extends Controller
 	*/
 	public function getAdd($request, $response)
 	{
-		return $this->view->render($response, 'admin/post-add.twig');
+        $tag = PostTagController::getTagByUser();
+		return $this->view->render($response, 'admin/post-add.twig',['tag' => $tag]);
 	}
+
+    public function getPostByTitle($title)
+    {
+        return PostModel::where('title', $title)->first()->toArray();
+    }
 
 	/**
 	*
@@ -50,6 +56,11 @@ class PostController extends Controller
 			$article->content 	= $request['content'];
 			$article->user_id	= $_SESSION['login']['id'];
 			$article->save();
+
+            if (!empty($request['tag'])) {
+                $post = $this->getPostByTitle($request['title']);
+                PostTagController::addPostTag($request, $post);
+            }
 
 			return $response->withRedirect($this->router->pathFor('post.list'));
 		} else {

@@ -496,6 +496,7 @@ class UserController extends Controller
     //     return $user->username();
     // }
 
+
     public function getUserTag()
     {
         $postTag = new PostTagController($this);

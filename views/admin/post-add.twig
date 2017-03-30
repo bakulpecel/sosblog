@@ -21,10 +21,12 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="kota" name="kota[]" multiple="multiple">
-                        <option>Tag 1</option>
-                        <option>Tag 2</option>
-                        <option>Tag 3</option>
+                    <select class="form-control" id="tag" name="tag[]" multiple="multiple">
+                        {% if tag %}
+                            {% for tag in tag %}
+                                <option value="{{tag.id}}">{{tag.tags}}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                 </div>
             </div>
