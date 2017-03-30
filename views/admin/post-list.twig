@@ -10,7 +10,8 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <th class="text-center">Title</th>
-                    <th class="text-center">User</th>
+                    <th class="text-center">Writter</th>
+                    <th style="width: 40px">View</th>
                     <th style="width: 40px">Edit</th>
                     <th style="width: 40px">Delete</th>
                 </tr>
@@ -18,6 +19,7 @@
                     <tr>
                         <td>{{ article.title }}</td>
                         <td>{{ article.user.username }}</td>
+                        <td class="text-center"><a target="_blank" href="{{ path_for('post.read', {('id'):article.id}) }}"><i class="fa fa-eye"></i></a></td>
                         <td class="text-center"><a href="{{ path_for('post.edit', {('id'):article.id} ) }}"><i class="fa fa-pencil"></i></a></td>
                         <td class="text-center"><a href="{{ path_for('post.delete', {('id'):article.id} ) }}"><i class="fa fa-trash"></i></a></td>
                     </tr>

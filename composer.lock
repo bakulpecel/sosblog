@@ -1010,11 +1010,7 @@
                 "micro",
                 "router"
             ],
-<<<<<<< HEAD
-            "time": "2017-03-19T17:55:20+00:00"
-=======
             "time": "2017-03-19 17:55:20"
->>>>>>> upstream/dev
         },
         {
             "name": "slim/twig-view",

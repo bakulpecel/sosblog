@@ -16,15 +16,16 @@
             <p class="text-justify">{{ article.content }}</p>
         </div>
     </div>
+    <hr>
     {% for comment in comment %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <p>{{ comment.user.username }}</p>
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading">{{ comment.user.username }}
+                    <small>{{ comment.created_at|date('d F Y H:m') }}</small>
+                </h4>
+                {{ comment.comment }}
+            </div>
         </div>
-        <div class="panel-body">
-            <p class="text-justify">{{ comment.comment }}</p>
-        </div>
-    </div>
     {% endfor %}
     <div class="media">
         <form method="post" autocomplete="off" action="{{ path_for('comment', {('id'):article.id}) }}">

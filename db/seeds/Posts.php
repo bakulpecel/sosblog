@@ -19,7 +19,7 @@ class Posts extends AbstractSeed
         for ($i = 0; $i < 10; $i++) { 
             $data[] = [
                 'title'     => $faker->sentence,
-                'content'   => $faker->text($maxNbChars = 20000),
+                'content'   => $faker->text($maxNbChars = 2000),
                 'user_id'   => rand(1, 5),
             ];
         }

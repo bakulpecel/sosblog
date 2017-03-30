@@ -461,7 +461,7 @@ class UserController extends Controller
             // return var_dump($_SESSION['login']);
             if ($this->checkUser()) {
                 if ($this->checkAdmin()) {
-                    return $response->withRedirect($this->router->pathFor('user.list'));
+                    return $response->withRedirect($this->router->pathFor('post.list'));
                 } else {
                     return   $response->withRedirect($this->router->pathFor('post.list'));
                 }
