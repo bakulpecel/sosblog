@@ -31,7 +31,7 @@ $container['view'] = function ($c) {
     );
     $view->addExtension(new Twig_Extension_Debug());
     $view->getEnvironment()->addGlobal('flash', $c['flash']);
-    
+
     if (isset($_SESSION['login'])) {
         $view->getEnvironment()->addGlobal('login', $_SESSION['login']);
         // unset($_SESSION['login']);

@@ -39,6 +39,8 @@ class TagController extends Controller
 
     public function getTags()
     {
+        var_dump(TagModel::orderBy('tags','asc')->get()->toArray());
+        die();
         return TagModel::orderBy('tags','asc')->get()->toArray();
     }
 

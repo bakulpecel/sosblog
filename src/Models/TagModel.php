@@ -18,6 +18,6 @@ class TagModel extends Model
 
     public function postTag()
     {
-        return $this->hasMany(App\Models\PostTagModel::class);
+        return $this->hasMany(PostTagModel::class);
     }
 }
