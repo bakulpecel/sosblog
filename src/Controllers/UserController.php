@@ -55,6 +55,10 @@ class UserController extends Controller
     */
     public function getAdd($request, $response)
     {
+        // =========================================================
+        // return $this->view->render($response, 'admin/tag-add.twig');
+        // die();
+        // =========================================================
         if ($this->checkUser()) {
             if ($this->checkAdmin()) {
                 return $this->view->render($response, 'admin/user-add.twig');
@@ -491,6 +495,7 @@ class UserController extends Controller
     //     $user = UserModel::where('id', $id)->first();
     //     return $user->username();
     // }
+
 
     public function getUserTag()
     {

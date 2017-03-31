@@ -18,14 +18,14 @@ class PostTagModel extends Model
 
     public function tag()
     {
-        return $this->belogsTo(App\Models\TagModel::class);
+        return $this->belongsTo(TagModel::class);
     }
     public function post()
     {
-        return $this->belongsTo(App\Models\PostModel::class);
+        return $this->belongsTo(PostModel::class);
     }
     public function user()
     {
-        return $this->belongsTo(App\Models\UserModel::class);
+        return $this->belongsTo(UserModel::class);
     }
 }

@@ -228,8 +228,11 @@ desired effect
 
 <script>
     $(document).ready(function () {
-        $("#kota").select2({
-            placeholder: "Please Select"
+        $("#tag").select2({
+            // placeholder: "Please Select"
+            tags:true,
+            tokenSeparators:[','],
+            placeholder: "Add tag separate with coma"
         });
     });
 </script>
