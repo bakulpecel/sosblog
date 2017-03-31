@@ -8,7 +8,14 @@ class auth
 {
     public function isUser()
     {
-        return UserModel::where('username', $_SESSION['login']['username'])->first()->toArray();
+        if (!empty($_SESSION['login'])) {
+            $user = UserModel::where('username', $_SESSION['login']['username'])->first();
+            if (!is_null($user)) {
+                return UserModel::where('username', $_SESSION['login']['username'])->first()->toArray();
+            } else {
+                return false;
+            }
+        }
         // return UserModel::find($user['']);
     }
     public function isAdmin()

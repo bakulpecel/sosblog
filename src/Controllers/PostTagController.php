@@ -14,8 +14,10 @@ class PostTagController extends Controller
     public function getTagByUser()
     {
         if (isset($_SESSION['login']['id']) && !is_null($_SESSION['login']['id'])) {
-            $postTag =PostTagModel::where('user_id', $_SESSION['login']['id'])->get()->toArray();
-
+            $postTag =PostTagModel::where('user_id', $_SESSION['login']['id'])
+                      ->groupby('tag_id')->distinct()->get()->toArray();
+                    //   var_dump($postTag);
+                    //   die();
             if (!is_null($postTag)) {
                 foreach ($postTag as $val) {
                     $fetchTag = PostTagModel::find($val['id']);
@@ -32,8 +34,8 @@ class PostTagController extends Controller
 
     public function getTagByPost($request, $response, $args)
     {
-        $postTag = PostTagModel::where('post_id', $args['id'])->get()
-                   ->toArray();
+        $postTag = PostTagModel::where('post_id', $args['id'])->distinct('tag_id')
+                   ->get()->toArray();
         if (!is_null($postTag)) {
             foreach ($postTag as $val) {
                 $fetchTag = PostTagModel::find($val['id']);

@@ -32,7 +32,6 @@ class PostController extends Controller
 	public function postAdd($request, $response)
 	{
 		$request = $request->getParsedBody();
-
 		$rules = [
 			'required' => [
 				['title'],
