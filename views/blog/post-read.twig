@@ -14,6 +14,12 @@
         </div>
         <div class="media-body">
             <p class="text-justify">{{ article.content }}</p>
+            <hr>
+            {% for tag in tags %}
+                {% if tag.post_id == article.id %}
+                    <i class="fa fa-tags"> {{ tag.tag.tags }}</i>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     <hr>

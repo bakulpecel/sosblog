@@ -51,7 +51,8 @@ $app->get('/post/user/{id}', 'App\Controllers\PostController:getListByUser')->se
 $app->get('/tags/add', 'App\Controllers\TagController:getAdd')->setName('tag.add');
 $app->post('/tags/add', 'App\Controllers\TagController:postAdd');
 $app->get('/tags/list', 'App\Controllers\PostTagController:getTagByUser');
-$app->get('/post/tags/{id}','App\Controllers\PostTagController:getPostByTag');
+
+$app->get('/post/tag/{tag_id}','App\Controllers\PostController:getPostByTag')->setName('post.bytag');
 
 $app->post('/post/{id}/comment', 'App\Controllers\CommentController:postComment')->setName('comment');
 

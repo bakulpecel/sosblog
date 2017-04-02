@@ -424,7 +424,7 @@ class UserController extends Controller
                     return $response->withRedirect($this->router->pathFor('auth.signup', $request));
                 }
             } else {
-                $_SESSION['errors']['username'] = 'username sudah digunakan ganti lainnya';
+                $_SESSION['errors']['username'][] = 'username sudah digunakan ganti lainnya';
                 $_SESSION['old']    = $request;
 
                 return $response->withRedirect($this->router->pathFor('auth.signup', $request));

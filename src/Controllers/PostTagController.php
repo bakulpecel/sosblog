@@ -15,9 +15,7 @@ class PostTagController extends Controller
     {
         if (isset($_SESSION['login']['id']) && !is_null($_SESSION['login']['id'])) {
             $postTag =PostTagModel::where('user_id', $_SESSION['login']['id'])
-                      ->groupby('tag_id')->distinct()->get()->toArray();
-                    //   var_dump($postTag);
-                    //   die();
+                      ->get()->toArray();
             if (!is_null($postTag)) {
                 foreach ($postTag as $val) {
                     $fetchTag = PostTagModel::find($val['id']);
@@ -95,14 +93,21 @@ class PostTagController extends Controller
             );
         }
     }
+
     public function delete($request, $response)
     {
         $postTag = PostTagModel::where('post_id', $request['post_id'])->where('tag_id', $request['tag_id'])
                     ->where('user_id',$request['user_id'])->first();
         $postTag->delete();
     }
+
     public function getPostTag($id)
     {
         return PostTagModel::find($id);
+    }
+
+    public static function getByTag($args)
+    {
+        return PostTagModel::orderBy('id', 'DESC')->where('tag_id', $args)->get();
     }
 }

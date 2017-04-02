@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\PostModel;
 use App\Models\UserModel;
+use App\Models\PostTagModel;
 use App\Controllers\UserController;
 use App\Controllers\CommentController;
 
@@ -114,7 +115,9 @@ class PostController extends Controller
 	{
 		$article = self::getList();
 
-		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
+		$tag 	 = PostTagModel::get();
+
+		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article, 'tags' => $tag]);
 	}
 
 	/**
@@ -124,9 +127,11 @@ class PostController extends Controller
 	{
 		$article = PostModel::find($args['id']);
 
+		$tag 	 = PostTagModel::get();
+
 		$comment = CommentController::getByPost($args['id']);
 
-		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article, 'comment' => $comment]);
+		return $this->view->render($response, 'blog/post-read.twig', ['article' => $article, 'comment' => $comment, 'tags' => $tag]);
 	}
 
 	/**
@@ -248,5 +253,16 @@ class PostController extends Controller
 		$article = PostModel::where('title', 'LIKE', '%' . $request['search'] . '%')->orWhere('content', 'LIKE', '%' . $request['search'] . '%')->get();
 
 		return $this->view->render($response , 'blog/post-list.twig', ['article' => $article]);
+	}
+
+	/**
+	*
+	*/
+	public function getPostByTag($request, $response, $args)
+	{
+		$article	= self::getList();
+		$tag 		= PostTagController::getByTag($args['tag_id']);
+
+		return $this->view->render($response, 'blog/post-list.twig', ['article' => $article, 'tag' => $tag]);
 	}
 }
