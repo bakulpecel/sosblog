@@ -25,7 +25,7 @@
                         <i class="fa fa-tags"> {{ tag.tag.tags }}</i>
                     {% endif %}
                 {% endfor %}
-                <p class="text-justify">{{ article.content|slice(0, 320) }} <a href="{{ path_for('post.read', {('id'):article.id} ) }}">Readmore...</a></p>
+                <p class="text-justify">{{ article.content|slice(0, 300) }} <a href="{{ path_for('post.read', {('id'):article.id} ) }}">Readmore...</a></p>
                 <i class="fa fa-user"> <a href="{{ path_for('post.name', {('id'):article.user_id}) }}">{{ article.user.username }}</a></i>
                 <i class="fa fa-calendar"> {{ article.created_at|date('d/m/Y') }} </i>
                 <i class="fa fa-clock-o"> {{ article.created_at|date("H:m") }}</i>
